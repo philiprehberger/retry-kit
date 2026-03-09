@@ -1,0 +1,76 @@
+# @philiprehberger/retry-kit
+
+Async retry with exponential backoff, circuit breaker, and abort signals.
+
+## Installation
+
+```bash
+npm install @philiprehberger/retry-kit
+```
+
+## Usage
+
+### Basic Retry
+
+```ts
+import { retry } from '@philiprehberger/retry-kit';
+
+const data = await retry(() => fetch('/api/data').then(r => r.json()), {
+  maxAttempts: 3,
+  backoff: 'exponential',
+  initialDelay: 1000,
+});
+```
+
+### With Options
+
+```ts
+const result = await retry(() => fetch('/api/data'), {
+  maxAttempts: 5,
+  backoff: 'exponential',    // 'exponential' | 'linear' | 'fixed'
+  initialDelay: 1000,
+  maxDelay: 30000,
+  jitter: true,
+  timeout: 5000,             // per-attempt timeout
+  totalTimeout: 30000,       // total timeout across all attempts
+  signal: AbortSignal.timeout(60000),
+  retryOn: (error) => error.status >= 500,
+  onRetry: (error, attempt) => console.log(`Retry ${attempt}...`),
+});
+```
+
+### Presets
+
+```ts
+import { retry, presets } from '@philiprehberger/retry-kit';
+
+await retry(fn, presets.networkRequest);
+await retry(fn, presets.databaseQuery);
+await retry(fn, presets.aggressive);
+await retry(fn, presets.gentle);
+```
+
+### Circuit Breaker
+
+```ts
+import { withCircuitBreaker } from '@philiprehberger/retry-kit';
+
+const resilientFetch = withCircuitBreaker(fetch, {
+  failureThreshold: 5,    // open after 5 failures
+  resetTimeout: 30000,    // try again after 30s
+  onStateChange: (from, to) => console.log(`Circuit: ${from} → ${to}`),
+  onCircuitOpen: (failures) => console.warn(`Circuit opened after ${failures} failures`),
+});
+
+try {
+  await resilientFetch('/api/data');
+} catch (error) {
+  if (error.name === 'CircuitOpenError') {
+    // Circuit is open, fail fast
+  }
+}
+```
+
+## License
+
+MIT
