@@ -1,5 +1,5 @@
 {
-  "name": "@philiprehberger/retry-kit",
+  "name": "@philiprehberger/ts-retry-kit",
   "version": "0.1.1",
   "description": "Async retry with exponential backoff, circuit breaker, and abort signals",
   "type": "module",
@@ -42,11 +42,11 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/philiprehberger/retry-kit.git"
+    "url": "git+https://github.com/philiprehberger/ts-retry-kit.git"
   },
-  "homepage": "https://github.com/philiprehberger/retry-kit#readme",
+  "homepage": "https://github.com/philiprehberger/ts-retry-kit#readme",
   "bugs": {
-    "url": "https://github.com/philiprehberger/retry-kit/issues"
+    "url": "https://github.com/philiprehberger/ts-retry-kit/issues"
   },
   "author": "Philip Rehberger",
   "engines": {
