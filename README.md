@@ -1,11 +1,11 @@
-# @philiprehberger/ts-retry-kit
+# @philiprehberger/retry-kit
 
 Async retry with exponential backoff, circuit breaker, and abort signals.
 
 ## Installation
 
 ```bash
-npm install @philiprehberger/ts-retry-kit
+npm install @philiprehberger/retry-kit
 ```
 
 ## Usage
@@ -13,7 +13,7 @@ npm install @philiprehberger/ts-retry-kit
 ### Basic Retry
 
 ```ts
-import { retry } from '@philiprehberger/ts-retry-kit';
+import { retry } from '@philiprehberger/retry-kit';
 
 const data = await retry(() => fetch('/api/data').then(r => r.json()), {
   maxAttempts: 3,
@@ -42,7 +42,7 @@ const result = await retry(() => fetch('/api/data'), {
 ### Presets
 
 ```ts
-import { retry, presets } from '@philiprehberger/ts-retry-kit';
+import { retry, presets } from '@philiprehberger/retry-kit';
 
 await retry(fn, presets.networkRequest);
 await retry(fn, presets.databaseQuery);
@@ -53,7 +53,7 @@ await retry(fn, presets.gentle);
 ### Circuit Breaker
 
 ```ts
-import { withCircuitBreaker } from '@philiprehberger/ts-retry-kit';
+import { withCircuitBreaker } from '@philiprehberger/retry-kit';
 
 const resilientFetch = withCircuitBreaker(fetch, {
   failureThreshold: 5,    // open after 5 failures

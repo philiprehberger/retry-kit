@@ -1,6 +1,6 @@
 {
-  "name": "@philiprehberger/ts-retry-kit",
-  "version": "0.1.1",
+  "name": "@philiprehberger/retry-kit",
+  "version": "0.1.2",
   "description": "Async retry with exponential backoff, circuit breaker, and abort signals",
   "type": "module",
   "main": "./dist/index.cjs",
