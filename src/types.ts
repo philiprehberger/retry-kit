@@ -3,6 +3,7 @@ export type BackoffStrategy = 'exponential' | 'linear' | 'fixed';
 export interface RetryOptions {
   maxAttempts?: number;
   backoff?: BackoffStrategy;
+  backoffMultiplier?: number;
   initialDelay?: number;
   maxDelay?: number;
   jitter?: boolean;
@@ -25,6 +26,7 @@ export interface CircuitBreakerOptions {
   failureThreshold?: number;
   resetTimeout?: number;
   halfOpenMaxAttempts?: number;
+  halfOpenSuccessThreshold?: number;
   onStateChange?: (from: CircuitState, to: CircuitState) => void;
   onCircuitOpen?: (failures: number) => void;
 }

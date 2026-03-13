@@ -28,6 +28,7 @@ const data = await retry(() => fetch('/api/data').then(r => r.json()), {
 const result = await retry(() => fetch('/api/data'), {
   maxAttempts: 5,
   backoff: 'exponential',    // 'exponential' | 'linear' | 'fixed'
+  backoffMultiplier: 2,      // base for exponential backoff (default: 2)
   initialDelay: 1000,
   maxDelay: 30000,
   jitter: true,
@@ -56,11 +57,15 @@ await retry(fn, presets.gentle);
 import { withCircuitBreaker } from '@philiprehberger/retry-kit';
 
 const resilientFetch = withCircuitBreaker(fetch, {
-  failureThreshold: 5,    // open after 5 failures
-  resetTimeout: 30000,    // try again after 30s
+  failureThreshold: 5,             // open after 5 failures
+  resetTimeout: 30000,             // try again after 30s
+  halfOpenSuccessThreshold: 2,     // require 2 successes in half-open before closing
   onStateChange: (from, to) => console.log(`Circuit: ${from} → ${to}`),
   onCircuitOpen: (failures) => console.warn(`Circuit opened after ${failures} failures`),
 });
+
+// Inspect current circuit state
+console.log(resilientFetch.getState()); // 'closed' | 'open' | 'half-open'
 
 try {
   await resilientFetch('/api/data');

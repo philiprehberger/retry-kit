@@ -7,11 +7,12 @@ function calculateDelay(
   initialDelay: number,
   maxDelay: number,
   jitter: boolean,
+  backoffMultiplier: number,
 ): number {
   let delay: number;
   switch (strategy) {
     case 'exponential':
-      delay = initialDelay * Math.pow(2, attempt - 1);
+      delay = initialDelay * Math.pow(backoffMultiplier, attempt - 1);
       break;
     case 'linear':
       delay = initialDelay * attempt;
@@ -54,6 +55,7 @@ export async function retry<T>(
   const {
     maxAttempts = 3,
     backoff = 'exponential',
+    backoffMultiplier = 2,
     initialDelay = 1000,
     maxDelay = 30000,
     jitter = true,
@@ -114,7 +116,7 @@ export async function retry<T>(
 
         if (attempt < maxAttempts) {
           onRetry?.(error, attempt);
-          const delay = calculateDelay(attempt, backoff, initialDelay, maxDelay, jitter);
+          const delay = calculateDelay(attempt, backoff, initialDelay, maxDelay, jitter, backoffMultiplier);
           await sleep(delay, effectiveSignal);
         }
       }

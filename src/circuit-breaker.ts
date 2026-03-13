@@ -1,14 +1,20 @@
 import type { CircuitBreakerOptions, CircuitState } from './types.js';
 import { CircuitOpenError } from './types.js';
 
+export interface CircuitBreakerWrapper<TArgs extends unknown[], TReturn> {
+  (...args: TArgs): Promise<TReturn>;
+  getState(): CircuitState;
+}
+
 export function withCircuitBreaker<TArgs extends unknown[], TReturn>(
   fn: (...args: TArgs) => Promise<TReturn>,
   options: CircuitBreakerOptions = {},
-): (...args: TArgs) => Promise<TReturn> {
+): CircuitBreakerWrapper<TArgs, TReturn> {
   const {
     failureThreshold = 5,
     resetTimeout = 30000,
     halfOpenMaxAttempts = 1,
+    halfOpenSuccessThreshold = 1,
     onStateChange,
     onCircuitOpen,
   } = options;
@@ -17,6 +23,7 @@ export function withCircuitBreaker<TArgs extends unknown[], TReturn>(
   let failures = 0;
   let lastFailureTime = 0;
   let halfOpenAttempts = 0;
+  let halfOpenSuccesses = 0;
 
   function transition(to: CircuitState): void {
     if (state !== to) {
@@ -26,11 +33,12 @@ export function withCircuitBreaker<TArgs extends unknown[], TReturn>(
     }
   }
 
-  return async (...args: TArgs): Promise<TReturn> => {
+  const wrapper = async (...args: TArgs): Promise<TReturn> => {
     if (state === 'open') {
       if (Date.now() - lastFailureTime >= resetTimeout) {
         transition('half-open');
         halfOpenAttempts = 0;
+        halfOpenSuccesses = 0;
       } else {
         throw new CircuitOpenError();
       }
@@ -48,7 +56,10 @@ export function withCircuitBreaker<TArgs extends unknown[], TReturn>(
       const result = await fn(...args);
 
       if (state === 'half-open') {
-        transition('closed');
+        halfOpenSuccesses++;
+        if (halfOpenSuccesses >= halfOpenSuccessThreshold) {
+          transition('closed');
+        }
       }
       failures = 0;
 
@@ -56,6 +67,7 @@ export function withCircuitBreaker<TArgs extends unknown[], TReturn>(
     } catch (error) {
       failures++;
       lastFailureTime = Date.now();
+      halfOpenSuccesses = 0;
 
       if (state === 'half-open') {
         transition('open');
@@ -68,4 +80,8 @@ export function withCircuitBreaker<TArgs extends unknown[], TReturn>(
       throw error;
     }
   };
+
+  wrapper.getState = (): CircuitState => state;
+
+  return wrapper as CircuitBreakerWrapper<TArgs, TReturn>;
 }
