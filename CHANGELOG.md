@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.3
+
+- Add Development section to README
+- Fix CI badge to reference publish.yml
+- Add test script to package.json
+
 ## 0.2.0
 - Add configurable `backoffMultiplier` option for exponential backoff strategy
 - Add `halfOpenSuccessThreshold` option for circuit breaker half-open state

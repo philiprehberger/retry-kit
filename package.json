@@ -1,6 +1,6 @@
 {
   "name": "@philiprehberger/retry-kit",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Async retry with exponential backoff, circuit breaker, and abort signals",
   "type": "module",
   "main": "./dist/index.cjs",
@@ -25,7 +25,8 @@
     "build": "tsup",
     "dev": "tsup --watch",
     "typecheck": "tsc --noEmit",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "test": "node --test"
   },
   "devDependencies": {
     "tsup": "^8.0.0",

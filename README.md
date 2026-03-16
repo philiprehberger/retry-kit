@@ -1,6 +1,6 @@
 # @philiprehberger/retry-kit
 
-[![CI](https://github.com/philiprehberger/retry-kit/actions/workflows/ci.yml/badge.svg)](https://github.com/philiprehberger/retry-kit/actions/workflows/ci.yml)
+[![CI](https://github.com/philiprehberger/retry-kit/actions/workflows/publish.yml/badge.svg)](https://github.com/philiprehberger/retry-kit/actions/workflows/publish.yml)
 [![npm version](https://img.shields.io/npm/v/@philiprehberger/retry-kit.svg)](https://www.npmjs.com/package/@philiprehberger/retry-kit)
 [![License](https://img.shields.io/github/license/philiprehberger/retry-kit)](LICENSE)
 
@@ -78,6 +78,15 @@ try {
     // Circuit is open, fail fast
   }
 }
+```
+
+
+## Development
+
+```bash
+npm install
+npm run build
+npm test
 ```
 
 ## License
