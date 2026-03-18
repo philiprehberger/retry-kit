@@ -4,7 +4,7 @@
 [![npm version](https://img.shields.io/npm/v/@philiprehberger/retry-kit.svg)](https://www.npmjs.com/package/@philiprehberger/retry-kit)
 [![License](https://img.shields.io/github/license/philiprehberger/retry-kit)](LICENSE)
 
-Async retry with exponential backoff, circuit breaker, and abort signals.
+Async retry with exponential backoff, circuit breaker, and abort signals
 
 ## Installation
 
@@ -80,6 +80,20 @@ try {
 }
 ```
 
+
+## API
+
+| Export | Type | Description |
+|--------|------|-------------|
+| `retry(fn, options?)` | Function | Retry an async function with configurable backoff and abort support |
+| `withCircuitBreaker(fn, options?)` | Function | Wrap a function with circuit breaker protection; returns callable with `.getState()` |
+| `presets` | Object | Built-in retry option presets: `aggressive`, `gentle`, `networkRequest`, `databaseQuery` |
+| `RetryError` | Class | Thrown when all retry attempts are exhausted |
+| `CircuitOpenError` | Class | Thrown when circuit breaker is open |
+| `RetryOptions` | Type | Options: `maxAttempts`, `backoff`, `initialDelay`, `maxDelay`, `jitter`, `timeout`, `totalTimeout`, `signal`, `retryOn`, `onRetry`, `onSuccess`, `onFailure` |
+| `BackoffStrategy` | Type | `'exponential' \| 'linear' \| 'fixed'` |
+| `CircuitBreakerOptions` | Type | Options: `failureThreshold`, `resetTimeout`, `halfOpenSuccessThreshold`, `onStateChange`, `onCircuitOpen` |
+| `CircuitState` | Type | `'closed' \| 'open' \| 'half-open'` |
 
 ## Development
 
