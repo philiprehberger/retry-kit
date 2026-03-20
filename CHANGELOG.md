@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.4
+
+- Fix README badge configuration
+
 ## 0.2.3
 
 - Add Development section to README

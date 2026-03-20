@@ -1,8 +1,8 @@
 # @philiprehberger/retry-kit
 
-[![CI](https://github.com/philiprehberger/retry-kit/actions/workflows/publish.yml/badge.svg)](https://github.com/philiprehberger/retry-kit/actions/workflows/publish.yml)
+[![CI](https://github.com/philiprehberger/ts-retry-kit/actions/workflows/ci.yml/badge.svg)](https://github.com/philiprehberger/ts-retry-kit/actions/workflows/ci.yml)
 [![npm version](https://img.shields.io/npm/v/@philiprehberger/retry-kit.svg)](https://www.npmjs.com/package/@philiprehberger/retry-kit)
-[![License](https://img.shields.io/github/license/philiprehberger/retry-kit)](LICENSE)
+[![License](https://img.shields.io/github/license/philiprehberger/ts-retry-kit)](LICENSE)
 
 Async retry with exponential backoff, circuit breaker, and abort signals
 
