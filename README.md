@@ -1,9 +1,8 @@
 # @philiprehberger/retry-kit
 
-[![CI](https://github.com/philiprehberger/ts-retry-kit/actions/workflows/ci.yml/badge.svg)](https://github.com/philiprehberger/ts-retry-kit/actions/workflows/ci.yml)
+[![CI](https://github.com/philiprehberger/retry-kit/actions/workflows/ci.yml/badge.svg)](https://github.com/philiprehberger/retry-kit/actions/workflows/ci.yml)
 [![npm version](https://img.shields.io/npm/v/@philiprehberger/retry-kit.svg)](https://www.npmjs.com/package/@philiprehberger/retry-kit)
-[![License](https://img.shields.io/github/license/philiprehberger/ts-retry-kit)](LICENSE)
-[![Sponsor](https://img.shields.io/badge/sponsor-GitHub%20Sponsors-ec6cb9)](https://github.com/sponsors/philiprehberger)
+[![Last updated](https://img.shields.io/github/last-commit/philiprehberger/retry-kit)](https://github.com/philiprehberger/retry-kit/commits/main)
 
 Async retry with exponential backoff, circuit breaker, and abort signals
 
@@ -81,7 +80,6 @@ try {
 }
 ```
 
-
 ## API
 
 | Export | Type | Description |
@@ -104,6 +102,24 @@ npm run build
 npm test
 ```
 
+## Support
+
+If you find this project useful:
+
+⭐ [Star the repo](https://github.com/philiprehberger/retry-kit)
+
+🐛 [Report issues](https://github.com/philiprehberger/retry-kit/issues?q=is%3Aissue+is%3Aopen+label%3Abug)
+
+💡 [Suggest features](https://github.com/philiprehberger/retry-kit/issues?q=is%3Aissue+is%3Aopen+label%3Aenhancement)
+
+❤️ [Sponsor development](https://github.com/sponsors/philiprehberger)
+
+🌐 [All Open Source Projects](https://philiprehberger.com/open-source-packages)
+
+💻 [GitHub Profile](https://github.com/philiprehberger)
+
+🔗 [LinkedIn Profile](https://www.linkedin.com/in/philiprehberger)
+
 ## License
 
-MIT
+[MIT](LICENSE)
