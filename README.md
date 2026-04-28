@@ -55,6 +55,19 @@ await retry(fn, presets.aggressive);
 await retry(fn, presets.gentle);
 ```
 
+### Polling Until a Condition
+
+```ts
+import { retryUntil } from '@philiprehberger/retry-kit';
+
+// Poll a job endpoint until it reports completion
+const job = await retryUntil(
+  () => fetch(`/api/jobs/${id}`).then((r) => r.json()),
+  (j) => j.status === 'done',
+  { maxAttempts: 20, initialDelay: 500, backoff: 'exponential', maxDelay: 5000 },
+);
+```
+
 ### Circuit Breaker
 
 ```ts
@@ -85,6 +98,7 @@ try {
 | Export | Type | Description |
 |--------|------|-------------|
 | `retry(fn, options?)` | Function | Retry an async function with configurable backoff and abort support |
+| `retryUntil(fn, predicate, options?)` | Function | Poll until `predicate(result)` is `true`; reuses retry's backoff/jitter/signal |
 | `withCircuitBreaker(fn, options?)` | Function | Wrap a function with circuit breaker protection; returns callable with `.getState()` |
 | `presets` | Object | Built-in retry option presets: `aggressive`, `gentle`, `networkRequest`, `databaseQuery` |
 | `RetryError` | Class | Thrown when all retry attempts are exhausted |

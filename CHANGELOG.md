@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.3.0
+
+- Add `retryUntil(fn, predicate, options)` for polling — reuses retry's backoff, jitter, signal, and total-timeout machinery
+- Export `RetryUntilOptions` type
+
 ## 0.2.6
 
 - Fix README GitHub URLs to use correct repo name (ts-retry-kit)
